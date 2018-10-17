@@ -91,7 +91,7 @@ $(document).ready(function() {
     var pos = index[sq];
     var x = pos[0];
     var y = pos[1]; 
-    renderPath(x, y, 1, 4);
+    renderPath(x, y, 1, 5);
   }
 
   function clickHandler(event) {

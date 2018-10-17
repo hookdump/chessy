@@ -47,6 +47,7 @@ body {
   opacity: 1;
 }
 
+.heat-6 { background-color: rgb(150, 0, 0) !important; }
 .heat-5 { background-color: rgb(255, 50, 0) !important; }
 .heat-4 { background-color: rgb(255, 150, 0) !important; }
 .heat-3 { background-color: rgb(255, 255, 0) !important; }
