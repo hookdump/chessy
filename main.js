@@ -82,8 +82,6 @@ $(document).ready(function() {
     });
   }
 
-
-
   function refresh(sq) {
     console.log('REFRESH', sq);
     initBoard();
@@ -92,6 +90,7 @@ $(document).ready(function() {
     var x = pos[0];
     var y = pos[1]; 
     renderPath(x, y, 1, 5);
+    $("." + sq).find(".txt").addClass("hide").html("&nbsp;");
   }
 
   function clickHandler(event) {

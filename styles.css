@@ -53,3 +53,34 @@ body {
 .heat-3 { background-color: rgb(255, 255, 0) !important; }
 .heat-2 { background-color: rgb(200, 255, 0) !important; }
 .heat-1 { background-color: rgb(0, 255, 0) !important; }
+
+
+/* BORDER MODE */
+/*
+.heat-6 { border: 4px solid rgb(150, 0, 0) !important; }
+.heat-5 { border: 4px solid rgb(255, 50, 0) !important; }
+.heat-4 { border: 4px solid rgb(255, 150, 0) !important; }
+.heat-3 { border: 4px solid rgb(255, 255, 0) !important; }
+.heat-2 { border: 4px solid rgb(200, 255, 0) !important; }
+.heat-1 { border: 4px solid rgb(0, 255, 0) !important; }
+*/
+
+/* DISPLAY SQUARE COLORS */
+/*
+.txt {
+  background-color: rgba(0,0,0,0.75);
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+
+.heat-6 .txt { color: rgb(150, 0, 0) !important; }
+.heat-5 .txt { color: rgb(255, 50, 0) !important; }
+.heat-4 .txt { color: rgb(255, 150, 0) !important; }
+.heat-3 .txt { color: rgb(255, 255, 0) !important; }
+.heat-2 .txt { color: rgb(200, 255, 0) !important; }
+.heat-1 .txt { color: rgb(0, 255, 0) !important; }
+
+.txt.hide {
+  background-color: transparent;
+}
+*/
