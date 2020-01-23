@@ -7,6 +7,16 @@ body {
   display: inline-block;
 }
 
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+}
+
 .row {
 
 }
@@ -27,14 +37,33 @@ body {
   left: 3px;
   position: absolute;
   font-size: 8px;
-  opacity: 0.3;
+  opacity: 0.5;
 }
 
+/* standard colors */
 .row:nth-child(odd)   .square:nth-child(even)  { background: #87A569; }
 .row:nth-child(odd)   .square:nth-child(odd)   { background: #FFFEDE; }
-
 .row:nth-child(even)   .square:nth-child(odd)  { background: #87A569; }
 .row:nth-child(even)   .square:nth-child(even) { background: #FFFEDE; }
+
+/* dark colors */
+.row:nth-child(odd)   .square:nth-child(even)  { background: #202020; }
+.row:nth-child(odd)   .square:nth-child(odd)   { background: #404040; }
+.row:nth-child(even)   .square:nth-child(odd)  { background: #202020; }
+.row:nth-child(even)   .square:nth-child(even) { background: #404040; }
+
+.identifier {
+  color: white;
+}
+.heat-1 .identifier,
+.heat-2 .identifier,
+.heat-3 .identifier,
+.heat-4 .identifier,
+.heat-5 .identifier,
+.heat-6 .identifier {
+  color: black;
+}
+
 
 .piece {
   position: absolute;
