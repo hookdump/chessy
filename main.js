@@ -78,7 +78,7 @@ $(document).ready(function() {
     next.push(tagSquare(x-2,y+1,val,steps));
 
     next.forEach((sq) => {
-      if (sq && sq.x) renderPath(sq.x, sq.y, sq.val, sq.steps);
+      if (sq) renderPath(sq.x, sq.y, sq.val, sq.steps);
     });
   }
 
