@@ -48,7 +48,7 @@ $(document).ready(function() {
     $("." + square).find(".txt").html("&nbsp;");
   };
 
-  var tagSquare = (x, y, val, steps) => {
+  var tagSquare = (type, x, y, val, steps, color=0) => {
     var sq = null;
     if (x >= 0 && x < 8 && y >= 0 && y < 8) {
       sq = board[x][y];
@@ -62,63 +62,104 @@ $(document).ready(function() {
         $("." + sq).addClass("heat-" + val);
         tagged[sq] = val;
         if (steps > 0) {
-          return {x: x, y: y, val: ++val, steps: --steps};
+          return {type: type, x: x, y: y, val: ++val, steps: --steps, color: color};
         }
       }
     }
   }
 
-  var renderPath = (x, y, val, steps) => {
+  var renderPath = (type, x, y, val, steps, color=0) => {
     var next = [];
+    var move = 7;
 
-    // knight!
-    next.push(tagSquare(x+1,y-2,val,steps));
-    next.push(tagSquare(x+1,y+2,val,steps));
-    next.push(tagSquare(x-1,y-2,val,steps));
-    next.push(tagSquare(x-1,y+2,val,steps));
-    next.push(tagSquare(x+2,y-1,val,steps));
-    next.push(tagSquare(x+2,y+1,val,steps));
-    next.push(tagSquare(x-2,y-1,val,steps));
-    next.push(tagSquare(x-2,y+1,val,steps));
+    if ('K'.includes(type)) {
+      move = 1;
+    }
+    if ('N'.includes(type)) {
+		next.push(tagSquare(type,x+1,y-2,val,steps,color=color));
+		next.push(tagSquare(type,x+1,y+2,val,steps,color=color));
+		next.push(tagSquare(type,x-1,y-2,val,steps,color=color));
+		next.push(tagSquare(type,x-1,y+2,val,steps,color=color));
+		next.push(tagSquare(type,x+2,y-1,val,steps,color=color));
+		next.push(tagSquare(type,x+2,y+1,val,steps,color=color));
+		next.push(tagSquare(type,x-2,y-1,val,steps,color=color));
+		next.push(tagSquare(type,x-2,y+1,val,steps,color=color));
+	}
+	if ('KBQ'.includes(type)) {
+		for (var i=0; i<=move; i++) {
+			next.push(tagSquare(type,x-i,y-i,val,steps,color=color));
+			next.push(tagSquare(type,x+i,y+i,val,steps,color=color));
+			next.push(tagSquare(type,x-i,y+i,val,steps,color=color));
+			next.push(tagSquare(type,x+i,y-i,val,steps,color=color));
+		}
+	}
+	if ('KRQ'.includes(type)) {
+		for (var i=0; i<=move; i++) {
+			next.push(tagSquare(type,x,y-i,val,steps,color=color));
+			next.push(tagSquare(type,x,y+i,val,steps,color=color));
+			next.push(tagSquare(type,x-i,y,val,steps,color=color));
+			next.push(tagSquare(type,x+i,y,val,steps,color=color));
+		}
+	}
+	if ('P'.includes(type)) {
 
+	  if (color == 0) {
+	    move = 1
+	    if (x > 5) {
+	     move = 2
+	     next.push(tagSquare(type,x-1,y,val,steps,color=color));
+	    }
+	  } else if (color == 1) {
+	    move = -1
+	    if (x < 2) {
+	      move = -2
+	      next.push(tagSquare(type,x+1,y,val,steps,color=color));
+	    }
+	  }
+	  next.push(tagSquare(type,x-move,y,val,steps,color=color));
+	  
+	}
     next.forEach((sq) => {
-      if (sq) renderPath(sq.x, sq.y, sq.val, sq.steps);
+      if (sq) renderPath(sq.type, sq.x, sq.y, sq.val, sq.steps, color=sq.color);
     });
   }
 
-  function refresh(sq) {
+  function refresh(type, sq, color=0) {
     console.log('REFRESH', sq);
     currentPos = sq;
     initBoard();
-    initPiece('N', sq);
+    initPiece(type, sq);
     var pos = index[sq];
     var x = pos[0];
     var y = pos[1];
-    renderPath(x, y, 1, 5);
+    renderPath(type, x, y, 1, 6,color=color);
+    var sprite = ['K','Q', 'B', 'N', 'R', 'P'].indexOf(type) + 1 + color * 6
+    $('.piece').css("background-image", "url('img/sprites_" + sprite.toString().padStart(2, '0') + ".png')");
     $("." + sq).find(".txt").addClass("hide").html("&nbsp;");
     console.log(tagged);
   }
 
-  function toggleBlock(sq) {
+  function toggleBlock(type, sq) {
     if (blocked[sq]) {
       blocked[sq] = false;
     } else {
       blocked[sq] = true;
     }
     console.log("BLOCKED", blocked);
-    refresh(currentPos);
+    refresh(type, currentPos);
   }
 
   function clickHandler(event) {
+    var type = 'K'
     var target = $(event.currentTarget);
     var id = target.find(".identifier").text();
     if (event.which == 1) {
-      refresh(id);
+      refresh(type, id);
     } else {
       event.preventDefault();
-      toggleBlock(id);
+      toggleBlock(type, id);
     }
   }
 
-  refresh('g1');
+  refresh('N', 'g1');
 });
