@@ -150,7 +150,7 @@ $(document).ready(function() {
   }
 
   function clickHandler(event) {
-    var type = 'K'
+    var type = 'N'
     var target = $(event.currentTarget);
     var id = target.find(".identifier").text();
     if (event.which == 1) {
