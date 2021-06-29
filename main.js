@@ -76,14 +76,14 @@ $(document).ready(function() {
       move = 1;
     }
     if ('N'.includes(type)) { // if type is a Knight
-	  next.push(tagSquare(type,x+1,y-2,val,steps,color=color));
-	  next.push(tagSquare(type,x+1,y+2,val,steps,color=color));
-	  next.push(tagSquare(type,x-1,y-2,val,steps,color=color));
-	  next.push(tagSquare(type,x-1,y+2,val,steps,color=color));
-	  next.push(tagSquare(type,x+2,y-1,val,steps,color=color));
-	  next.push(tagSquare(type,x+2,y+1,val,steps,color=color));
-	  next.push(tagSquare(type,x-2,y-1,val,steps,color=color));
-	  next.push(tagSquare(type,x-2,y+1,val,steps,color=color));
+      next.push(tagSquare(type,x+1,y-2,val,steps,color=color));
+      next.push(tagSquare(type,x+1,y+2,val,steps,color=color));
+      next.push(tagSquare(type,x-1,y-2,val,steps,color=color));
+      next.push(tagSquare(type,x-1,y+2,val,steps,color=color));
+      next.push(tagSquare(type,x+2,y-1,val,steps,color=color));
+      next.push(tagSquare(type,x+2,y+1,val,steps,color=color));
+      next.push(tagSquare(type,x-2,y-1,val,steps,color=color));
+      next.push(tagSquare(type,x-2,y+1,val,steps,color=color));
     }
     if ('KBQ'.includes(type)) { // if type is a King, Bishop, or Queen
       for (var i=1; i<=move; i++) { // push diagonals
