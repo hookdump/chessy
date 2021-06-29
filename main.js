@@ -72,55 +72,57 @@ $(document).ready(function() {
     var next = [];
     var move = 7;
 
-    if ('K'.includes(type)) { // if type is King
-        move = 1;
+    if ('K'.includes(type)) { // if type is a King
+      move = 1;
     }
     if ('N'.includes(type)) { // if type is a Knight
-	next.push(tagSquare(type,x+1,y-2,val,steps,color=color));
-	next.push(tagSquare(type,x+1,y+2,val,steps,color=color));
-	next.push(tagSquare(type,x-1,y-2,val,steps,color=color));
-	next.push(tagSquare(type,x-1,y+2,val,steps,color=color));
-	next.push(tagSquare(type,x+2,y-1,val,steps,color=color));
-	next.push(tagSquare(type,x+2,y+1,val,steps,color=color));
-	next.push(tagSquare(type,x-2,y-1,val,steps,color=color));
-	next.push(tagSquare(type,x-2,y+1,val,steps,color=color));
+	  next.push(tagSquare(type,x+1,y-2,val,steps,color=color));
+	  next.push(tagSquare(type,x+1,y+2,val,steps,color=color));
+	  next.push(tagSquare(type,x-1,y-2,val,steps,color=color));
+	  next.push(tagSquare(type,x-1,y+2,val,steps,color=color));
+	  next.push(tagSquare(type,x+2,y-1,val,steps,color=color));
+	  next.push(tagSquare(type,x+2,y+1,val,steps,color=color));
+	  next.push(tagSquare(type,x-2,y-1,val,steps,color=color));
+	  next.push(tagSquare(type,x-2,y+1,val,steps,color=color));
     }
     if ('KBQ'.includes(type)) { // if type is a King, Bishop, or Queen
-        for (var i=1; i<=move; i++) { // push diagonals
-            next.push(tagSquare(type,x-i,y-i,val,steps,color=color));
-            next.push(tagSquare(type,x+i,y+i,val,steps,color=color));
-            next.push(tagSquare(type,x-i,y+i,val,steps,color=color));
-            next.push(tagSquare(type,x+i,y-i,val,steps,color=color));
-        }
+      for (var i=1; i<=move; i++) { // push diagonals
+        next.push(tagSquare(type,x-i,y-i,val,steps,color=color));
+        next.push(tagSquare(type,x+i,y+i,val,steps,color=color));
+        next.push(tagSquare(type,x-i,y+i,val,steps,color=color));
+        next.push(tagSquare(type,x+i,y-i,val,steps,color=color));
+      }
     }
     if ('KRQ'.includes(type)) { // if type is a King, Bishop or Queen
-        for (var i=1; i<=move; i++) { // push files and colomns
-            next.push(tagSquare(type,x,y-i,val,steps,color=color));
-            next.push(tagSquare(type,x,y+i,val,steps,color=color));
-            next.push(tagSquare(type,x-i,y,val,steps,color=color));
-            next.push(tagSquare(type,x+i,y,val,steps,color=color));
-        }
+      for (var i=1; i<=move; i++) { // push files and colomns
+        next.push(tagSquare(type,x,y-i,val,steps,color=color));
+        next.push(tagSquare(type,x,y+i,val,steps,color=color));
+        next.push(tagSquare(type,x-i,y,val,steps,color=color));
+        next.push(tagSquare(type,x+i,y,val,steps,color=color));
+      }
     }
     if ('P'.includes(type)) { // if type is a Pawn
-        if (color == 0) { // if white
-            move = 1
-            if (x > 5) { // on the first movement
-                move = 2 // allow double movement
+      if (color == 0) { // if white
+        move = 1
+        if (x > 5) { // on the first movement
+          move = 2 // allow double movement
 
-                next.push(tagSquare(type,x-1,y,val,steps,color=color));  // Puts a 1 directly in front of pawn.
-            }
-        } else if (color == 1) { // if black
-            move = -1
-            if (x < 2) { // on the first movement
-                move = -2 // allow double movement
+          next.push(tagSquare(type,x-1,y,val,steps,color=color));  // Puts a 1 directly in front of pawn.
+        }
+      } else if (color == 1) { // if black
+        move = -1
+          if (x < 2) { // on the first movement
+            move = -2 // allow double movement
 
-                next.push(tagSquare(type,x+1,y,val,steps,color=color)); // Puts a 1 directly in front of pawn.
-            }
-	}
-	    next.push(tagSquare(type,x-move,y,val,steps,color=color)); // Follows the double-step line.
+            next.push(tagSquare(type,x+1,y,val,steps,color=color)); // Puts a 1 directly in front of pawn.
+          }
+      }
+
+      next.push(tagSquare(type,x-move,y,val,steps,color=color)); // Follows the double-step line.
     }
-    next.forEach((sq) => {
-        if (sq) renderPath(sq.type, sq.x, sq.y, sq.val, sq.steps, color=sq.color);
+
+    next.forEach((sq) => { // Recursively calls renderPath if there are viable squares in next to move to.
+      if (sq) renderPath(sq.type, sq.x, sq.y, sq.val, sq.steps, color=sq.color);
     });
   }
 
