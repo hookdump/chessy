@@ -86,7 +86,7 @@ $(document).ready(function() {
 		next.push(tagSquare(type,x-2,y+1,val,steps,color=color));
 	}
 	if ('KBQ'.includes(type)) {
-		for (var i=0; i<=move; i++) {
+		for (var i=1; i<=move; i++) {
 			next.push(tagSquare(type,x-i,y-i,val,steps,color=color));
 			next.push(tagSquare(type,x+i,y+i,val,steps,color=color));
 			next.push(tagSquare(type,x-i,y+i,val,steps,color=color));
@@ -94,7 +94,7 @@ $(document).ready(function() {
 		}
 	}
 	if ('KRQ'.includes(type)) {
-		for (var i=0; i<=move; i++) {
+		for (var i=1; i<=move; i++) {
 			next.push(tagSquare(type,x,y-i,val,steps,color=color));
 			next.push(tagSquare(type,x,y+i,val,steps,color=color));
 			next.push(tagSquare(type,x-i,y,val,steps,color=color));
