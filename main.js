@@ -93,7 +93,7 @@ $(document).ready(function() {
         next.push(tagSquare(type,x+i,y-i,val,steps,color=color));
       }
     }
-    if ('KRQ'.includes(type)) { // if type is a King, Bishop or Queen
+    if ('KRQ'.includes(type)) { // if type is a King, Rook or Queen
       for (var i=1; i<=move; i++) { // push files and colomns
         next.push(tagSquare(type,x,y-i,val,steps,color=color));
         next.push(tagSquare(type,x,y+i,val,steps,color=color));
