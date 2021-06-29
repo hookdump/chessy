@@ -72,59 +72,59 @@ $(document).ready(function() {
     var next = [];
     var move = 7;
 
-    if ('K'.includes(type)) {
-      move = 1;
+    if ('K'.includes(type)) { // if type is King
+        move = 1;
     }
-    if ('N'.includes(type)) {
-		next.push(tagSquare(type,x+1,y-2,val,steps,color=color));
-		next.push(tagSquare(type,x+1,y+2,val,steps,color=color));
-		next.push(tagSquare(type,x-1,y-2,val,steps,color=color));
-		next.push(tagSquare(type,x-1,y+2,val,steps,color=color));
-		next.push(tagSquare(type,x+2,y-1,val,steps,color=color));
-		next.push(tagSquare(type,x+2,y+1,val,steps,color=color));
-		next.push(tagSquare(type,x-2,y-1,val,steps,color=color));
-		next.push(tagSquare(type,x-2,y+1,val,steps,color=color));
-	}
-	if ('KBQ'.includes(type)) {
-		for (var i=1; i<=move; i++) {
-			next.push(tagSquare(type,x-i,y-i,val,steps,color=color));
-			next.push(tagSquare(type,x+i,y+i,val,steps,color=color));
-			next.push(tagSquare(type,x-i,y+i,val,steps,color=color));
-			next.push(tagSquare(type,x+i,y-i,val,steps,color=color));
-		}
-	}
-	if ('KRQ'.includes(type)) {
-		for (var i=1; i<=move; i++) {
-			next.push(tagSquare(type,x,y-i,val,steps,color=color));
-			next.push(tagSquare(type,x,y+i,val,steps,color=color));
-			next.push(tagSquare(type,x-i,y,val,steps,color=color));
-			next.push(tagSquare(type,x+i,y,val,steps,color=color));
-		}
-	}
-	if ('P'.includes(type)) {
+    if ('N'.includes(type)) { // if type is a Knight
+	next.push(tagSquare(type,x+1,y-2,val,steps,color=color));
+	next.push(tagSquare(type,x+1,y+2,val,steps,color=color));
+	next.push(tagSquare(type,x-1,y-2,val,steps,color=color));
+	next.push(tagSquare(type,x-1,y+2,val,steps,color=color));
+	next.push(tagSquare(type,x+2,y-1,val,steps,color=color));
+	next.push(tagSquare(type,x+2,y+1,val,steps,color=color));
+	next.push(tagSquare(type,x-2,y-1,val,steps,color=color));
+	next.push(tagSquare(type,x-2,y+1,val,steps,color=color));
+    }
+    if ('KBQ'.includes(type)) { // if type is a King, Bishop, or Queen
+        for (var i=1; i<=move; i++) { // push diagonals
+            next.push(tagSquare(type,x-i,y-i,val,steps,color=color));
+            next.push(tagSquare(type,x+i,y+i,val,steps,color=color));
+            next.push(tagSquare(type,x-i,y+i,val,steps,color=color));
+            next.push(tagSquare(type,x+i,y-i,val,steps,color=color));
+        }
+    }
+    if ('KRQ'.includes(type)) { // if type is a King, Bishop or Queen
+        for (var i=1; i<=move; i++) { // push files and colomns
+            next.push(tagSquare(type,x,y-i,val,steps,color=color));
+            next.push(tagSquare(type,x,y+i,val,steps,color=color));
+            next.push(tagSquare(type,x-i,y,val,steps,color=color));
+            next.push(tagSquare(type,x+i,y,val,steps,color=color));
+        }
+    }
+    if ('P'.includes(type)) { // if type is a Pawn
+        if (color == 0) { // if white
+            move = 1
+            if (x > 5) { // on the first movement
+                move = 2 // allow double movement
 
-	  if (color == 0) {
-	    move = 1
-	    if (x > 5) {
-	     move = 2
-	     next.push(tagSquare(type,x-1,y,val,steps,color=color));
-	    }
-	  } else if (color == 1) {
-	    move = -1
-	    if (x < 2) {
-	      move = -2
-	      next.push(tagSquare(type,x+1,y,val,steps,color=color));
-	    }
-	  }
-	  next.push(tagSquare(type,x-move,y,val,steps,color=color));
-	  
+                next.push(tagSquare(type,x-1,y,val,steps,color=color));  // Puts a 1 directly in front of pawn.
+            }
+        } else if (color == 1) { // if black
+            move = -1
+            if (x < 2) { // on the first movement
+                move = -2 // allow double movement
+
+                next.push(tagSquare(type,x+1,y,val,steps,color=color)); // Puts a 1 directly in front of pawn.
+            }
 	}
+	    next.push(tagSquare(type,x-move,y,val,steps,color=color)); // Follows the double-step line.
+    }
     next.forEach((sq) => {
-      if (sq) renderPath(sq.type, sq.x, sq.y, sq.val, sq.steps, color=sq.color);
+        if (sq) renderPath(sq.type, sq.x, sq.y, sq.val, sq.steps, color=sq.color);
     });
   }
 
-  function refresh(type, sq, color=0) {
+  function refresh(type, sq, color=0) { //Change color here. 0 for white 1 for black. Useful for pawns.
     console.log('REFRESH', sq);
     currentPos = sq;
     initBoard();
@@ -132,8 +132,8 @@ $(document).ready(function() {
     var pos = index[sq];
     var x = pos[0];
     var y = pos[1];
-    renderPath(type, x, y, 1, 6,color=color);
-    var sprite = ['K','Q', 'B', 'N', 'R', 'P'].indexOf(type) + 1 + color * 6
+    renderPath(type, x, y, 1, 6, color=color);
+    var sprite = ['-', 'K', 'Q', 'B', 'N', 'R', 'P'].indexOf(type) + color * 6
     $('.piece').css("background-image", "url('img/sprites_" + sprite.toString().padStart(2, '0') + ".png')");
     $("." + sq).find(".txt").addClass("hide").html("&nbsp;");
     console.log(tagged);
@@ -150,7 +150,7 @@ $(document).ready(function() {
   }
 
   function clickHandler(event) {
-    var type = 'N'
+    var type = 'N' // Change pieces here 'K', 'Q', 'B', 'N', 'R', and 'P' are supported.
     var target = $(event.currentTarget);
     var id = target.find(".identifier").text();
     if (event.which == 1) {
